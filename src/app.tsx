@@ -9,8 +9,7 @@ import {Map, Source, Layer, Marker,
   GeolocateControl} from 'react-map-gl';
 import Pin from './pin';
 import CITIES from './data/cities.json';
-import {geojsonData} from './data/vietnam.geojson';
-import axios from 'axios';
+import geojsonData from './data/vietnam.geojson';
 
 // import ControlPanel from './control-panel';
 import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './layers';
@@ -21,6 +20,7 @@ import type {GeoJSONSource} from 'mapbox-gl';
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidHVuazA0MTEiLCJhIjoiY2xuZGozeXNqMDR4YTJrcXhlMXo5Zm04bCJ9.xEsevhM0tASYE9U0trqF7w'; // Set your mapbox token here
 
 export default function App() {
+  const [dataCluster, setDataCluster] = useState(null);
   const mapRef = useRef<MapRef>(null);
 
   const onClick = event => {
@@ -41,6 +41,17 @@ export default function App() {
       });
     });
   };
+
+  useEffect(() => {
+    /* global fetch */
+    fetch(
+      'https://raw.githubusercontent.com/TuNK0411/app-demo/blob/main/src/data/vietnam.geojson'
+    )
+      .then(resp => resp.json())
+      .then(json => setDataCluster(json))
+      .catch(err => console.error('Could not load data', err)); // eslint-disable-line
+  }, []);
+
 
   const pins = useMemo(
     () =>
