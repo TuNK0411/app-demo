@@ -8,8 +8,8 @@ import {Map, Source, Layer, Marker,
   ScaleControl,
   GeolocateControl} from 'react-map-gl';
 import Pin from './pin';
-import CITIES from './data/cities.json';
-import geojsonData from './data/vietnam.geojson';
+import CITIES from './.data/cities.json';
+// import geojsonData from './.data/vietnam.geojson';
 
 // import ControlPanel from './control-panel';
 import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './layers';
@@ -92,7 +92,7 @@ export default function App() {
         <Source
           id="vietnam"
           type="geojson"
-          data={geojsonData}
+          data={dataCluster}
           cluster={true}
           clusterMaxZoom={14}
           clusterRadius={50}
